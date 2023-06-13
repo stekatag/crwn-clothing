@@ -8,7 +8,7 @@ import {
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
-import { SignInContainer } from "./sign-in-form.style";
+import { SignInContainer, ButtonsContainer } from "./sign-in-form.style";
 
 const defaultFormFields = {
   email: "",
@@ -78,7 +78,7 @@ const SignInForm = () => {
             required: true,
           }}
         />
-        <div className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">Sign In</Button>
           <Button
             type="button"
@@ -87,7 +87,7 @@ const SignInForm = () => {
           >
             Google Sign In
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
     </SignInContainer>
   );
