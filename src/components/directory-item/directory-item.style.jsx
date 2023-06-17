@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { respond } from "../../utils/responsive/responsive.utils";
 
 export const BackgroundImage = styled.div`
   width: 100%;
@@ -8,44 +9,49 @@ export const BackgroundImage = styled.div`
 `;
 
 export const Body = styled.div`
-  height: 90px;
-  padding: 0 25px;
+  height: 9rem;
+  padding: 0 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  background-color: white;
-  opacity: 0.7;
+  border: 1px solid var(--color-black);
+  background-color: var(--color-white);
+  opacity: 0.75;
   position: absolute;
 
   h2 {
     font-weight: bold;
     margin: 0 6px 0;
-    font-size: 22px;
-    color: #4a4a4a;
+    font-size: 2.4rem;
+    color: var(--color-primary-light);
     text-transform: uppercase;
   }
 
-  p {
+  span {
     font-weight: lighter;
-    font-size: 16px;
+    font-size: 1.6rem;
   }
 `;
 
 export const DirectoryItemContainer = styled.div`
   min-width: 30%;
-  height: 240px;
+  height: 24rem;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  margin: 0 7.5px 15px;
+  margin: 0 0.75rem 1.5rem;
   overflow: hidden;
+
+  @media only screen and ${respond.bigDesktop} {
+    height: 30rem;
+  }
 
   &:hover {
     cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
 
     & ${BackgroundImage} {
       transform: scale(1.1);
@@ -54,14 +60,15 @@ export const DirectoryItemContainer = styled.div`
 
     & ${Body} {
       opacity: 0.9;
+      transition: opacity 0.2s ease-in-out;
     }
   }
 
   &:first-child {
-    margin-right: 7.5px;
+    margin-right: 0.75rem;
   }
 
   &:last-child {
-    margin-left: 7.5px;
+    margin-left: 0.75rem;
   }
 `;

@@ -7,7 +7,7 @@ import { UserProvider } from "./contexts/user.context";
 import { CategoriesProvider } from "./contexts/categories.context";
 import { CartProvider } from "./contexts/cart.context";
 
-import "./index.scss";
+import GlobalStyle from "./global.style";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -15,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserProvider>
         <CategoriesProvider>
           <CartProvider>
+            <GlobalStyle />
             <App />
           </CartProvider>
         </CategoriesProvider>

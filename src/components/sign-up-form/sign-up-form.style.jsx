@@ -1,11 +1,25 @@
 import styled from "styled-components";
+import { respond } from "../../utils/responsive/responsive.utils";
 
 export const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 380px;
+  min-width: 30rem;
+
+  @media only screen and ${respond.phone} {
+    text-align: center;
+
+    button {
+      width: 100%;
+    }
+  }
 
   h2 {
-    margin: 10px 0;
+    font-size: 2.8rem;
+    margin-block: 1rem;
+  }
+
+  span {
+    font-size: 1.8rem;
   }
 `;
