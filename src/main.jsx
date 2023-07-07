@@ -4,6 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
+import { StyleSheetManager } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
+
 import App from "./App";
 import { persistor, store } from "./store/store";
 
@@ -14,8 +17,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
-          <GlobalStyle />
-          <App />
+          <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
+            <GlobalStyle />
+            <App />
+          </StyleSheetManager>
         </BrowserRouter>
       </PersistGate>
     </Provider>
