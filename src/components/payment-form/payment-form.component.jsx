@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
-import BasicModal from "../basic-modal/basic-modal.component";
 import { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 import {
@@ -13,15 +12,12 @@ import {
   FormContainer,
   PaymentTitle,
   PaymentButton,
+  PaymentInfo,
+  PaymentInfoContainer,
 } from "./payment-form.style";
 
-const PaymentForm = () => {
+const PaymentForm = ({ handlePaymentSuccess, handlePaymentError }) => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [modalContent, setModalContent] = useState({
-    title: "",
-    text: "",
-  });
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
@@ -60,29 +56,27 @@ const PaymentForm = () => {
     setIsProcessingPayment(false);
 
     if (paymentResult.error) {
-      setModalContent({
-        title: "Transaction declined ❌",
-        text: paymentResult.error.message,
-      });
+      handlePaymentError(paymentResult.error);
     } else {
-      if (paymentResult.paymentIntent.status === "succeeded") {
-        setModalContent({
-          title: "Payment Successful ✅",
-          text: "Your payment was successful!",
-        });
-      }
+      handlePaymentSuccess();
     }
-
-    setIsOpenModal(true);
-  };
-
-  const closeModal = () => {
-    setIsPaymentSuccessful(false);
   };
 
   return (
     <PaymentFormContainer>
       <FormContainer onSubmit={paymentHandler}>
+        <PaymentInfoContainer>
+          <PaymentInfo>
+            Please, use the following for test credit card payments
+          </PaymentInfo>
+          <PaymentInfo>
+            VISA: <span>4242 4242 4242 4242</span>{" "}
+          </PaymentInfo>
+          <PaymentInfo>
+            MASTERCARD: <span>5555 5555 5555 4444</span>
+          </PaymentInfo>
+          <PaymentInfo>Exp: Any Future Date, CVV: Any 3 Digits</PaymentInfo>
+        </PaymentInfoContainer>
         <PaymentTitle>Credit Card Payment: </PaymentTitle>
         <CardElement />
         <PaymentButton
@@ -92,14 +86,6 @@ const PaymentForm = () => {
           Pay Now
         </PaymentButton>
       </FormContainer>
-
-      {isOpenModal && (
-        <BasicModal
-          modalTitle={modalContent.title}
-          modalText={modalContent.text}
-          closeModal={closeModal}
-        />
-      )}
     </PaymentFormContainer>
   );
 };
