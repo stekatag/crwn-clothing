@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
+import BasicModal from "../basic-modal/basic-modal.component";
 import { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 import {
@@ -15,11 +16,16 @@ import {
 } from "./payment-form.style";
 
 const PaymentForm = () => {
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    text: "",
+  });
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   const paymentHandler = async (e) => {
     e.preventDefault();
@@ -54,12 +60,24 @@ const PaymentForm = () => {
     setIsProcessingPayment(false);
 
     if (paymentResult.error) {
-      alert(paymentResult.error);
+      setModalContent({
+        title: "Transaction declined ❌",
+        text: paymentResult.error.message,
+      });
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
-        alert("Payment successful");
+        setModalContent({
+          title: "Payment Successful ✅",
+          text: "Your payment was successful!",
+        });
       }
     }
+
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setIsPaymentSuccessful(false);
   };
 
   return (
@@ -74,6 +92,14 @@ const PaymentForm = () => {
           Pay Now
         </PaymentButton>
       </FormContainer>
+
+      {isOpenModal && (
+        <BasicModal
+          modalTitle={modalContent.title}
+          modalText={modalContent.text}
+          closeModal={closeModal}
+        />
+      )}
     </PaymentFormContainer>
   );
 };
