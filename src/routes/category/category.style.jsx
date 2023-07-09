@@ -19,6 +19,7 @@ export const CategoryContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 2rem;
   row-gap: 5.5rem;
+  margin-bottom: 11rem;
 
   @media only screen and ${respond.tabPort} {
     grid-template-columns: repeat(2, 1fr);
