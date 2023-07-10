@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDetectAdblock } from "detect-adblock-react";
 
@@ -8,6 +8,17 @@ import {
 } from "../../store/cart/cart.selector";
 
 import { resetCartState } from "../../store/cart/cart.action";
+
+import {
+  setModalContent,
+  setIsModalOpen,
+  resetCheckoutState,
+} from "../../store/checkout/checkout.action";
+
+import {
+  selectModalContent,
+  selectIsModalOpen,
+} from "../../store/checkout/checkout.selector";
 
 import AdblockWarning from "../../components/adblock-warning/adblock-warning.component";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
@@ -26,31 +37,43 @@ const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const { adBlockDetected } = useDetectAdblock();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({
-    title: "",
-    text: "",
-  });
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const modalContent = useSelector(selectModalContent);
 
   const handlePaymentSuccess = () => {
-    setModalContent({
-      title: "Payment Successful ✅",
-      text: "Your payment was successful!",
-    });
-    setIsModalOpen(true);
+    // Dispatch action to set the modal content
+    dispatch(
+      setModalContent({
+        title: "Payment Successful ✅",
+        text: "Your payment was successful!",
+      })
+    );
+    // Dispatch action to set the modal open state to true
+    dispatch(setIsModalOpen(true));
+
+    // Dispatch action to reset the cart state
     dispatch(resetCartState());
   };
 
   const handlePaymentError = (error) => {
-    setModalContent({
-      title: "Transaction declined ❌",
-      text: error.message,
-    });
-    setIsModalOpen(true);
+    // Dispatch action to set the modal content
+    dispatch(
+      setModalContent({
+        title: "Transaction declined ❌",
+        text: error.message,
+      })
+    );
+
+    // Dispatch action to set the modal open state to true
+    dispatch(setIsModalOpen(true));
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    // Dispatch action to set the modal open state to false
+    dispatch(setIsModalOpen(false));
+
+    // Dispatch action to reset the checkout state
+    dispatch(resetCheckoutState());
   };
 
   return (
@@ -76,9 +99,9 @@ const Checkout = () => {
               <span>Remove</span>
             </HeaderBlock>
           </CheckoutHeader>
-          {cartItems.map((cartItem) => {
-            return <CheckoutItem key={cartItem.id} cartItem={cartItem} />;
-          })}
+          {cartItems.map((cartItem) => (
+            <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+          ))}
           <Total>Total: ${cartTotal}</Total>
           {cartItems.length > 0 && (
             <PaymentForm
