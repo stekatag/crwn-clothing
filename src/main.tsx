@@ -11,7 +11,7 @@ import { stripePromise } from "./utils/stripe/stripe.utils";
 
 import GlobalStyle from "./global.style";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
