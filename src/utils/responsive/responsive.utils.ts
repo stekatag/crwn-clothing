@@ -1,4 +1,12 @@
-const sizes = {
+type Breakpoints = {
+  smallPhone: string;
+  phone: string;
+  tabPort: string;
+  tabLand: string;
+  bigDesktop: string;
+};
+
+const sizes: Breakpoints = {
   smallPhone: "21.25em",
   phone: "37.5em",
   tabPort: "56.25em",
@@ -6,7 +14,9 @@ const sizes = {
   bigDesktop: "112.5em",
 };
 
-export const respond = {
+type Respond = Record<keyof Breakpoints, string>;
+
+export const respond: Respond = {
   smallPhone: `(max-width: ${sizes.smallPhone})`,
   phone: `(max-width: ${sizes.phone})`,
   tabPort: `(max-width: ${sizes.tabPort})`,
