@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
 
-const selectCheckout = (state) => state.checkout;
+import { CheckoutState } from "./checkout.reducer";
+
+const selectCheckout = (state): CheckoutState => state.checkout;
 
 export const selectModalContent = createSelector(
   [selectCheckout],
