@@ -1,7 +1,11 @@
+import { FC } from "react";
+
 import { useNavigate } from "react-router";
 import ProductCard from "../product-card/product-card.component";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+
+import { CategoryItem } from "../../store/categories/category.types";
 
 import {
   CategoryPreviewContainer,
@@ -10,7 +14,12 @@ import {
   Preview,
 } from "./category-preview.style";
 
-const CategoryPreview = ({ title, products }) => {
+type CategoryPreviewProps = {
+  title: string;
+  products: CategoryItem[];
+};
+
+const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {

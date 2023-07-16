@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { respond } from "../../utils/responsive/responsive.utils";
-import { BaseButton, GoogleSignInButton } from "../button/button.style";
 
 export const SignInContainer = styled.div`
   display: flex;

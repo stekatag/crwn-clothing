@@ -5,6 +5,6 @@ export enum CHECKOUT_ACTION_TYPES {
 }
 
 export type CheckoutModalContent = {
-  title: string;
-  text: string;
+  modalTitle: string;
+  modalText: string | undefined;
 };

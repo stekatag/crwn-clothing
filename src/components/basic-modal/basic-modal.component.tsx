@@ -1,10 +1,21 @@
+import { FC } from "react";
 import Modal from "@mui/material/Modal";
+
+import { CheckoutModalContent } from "../../store/checkout/checkout.types";
 
 import Button from "../button/button.component";
 
 import { ModalBox, ModalText, ModalTitle } from "./basic-modal.style";
 
-const BasicModal = ({ modalTitle, modalText, closeModal }) => {
+type BasicModalProps = {
+  closeModal: () => void;
+} & CheckoutModalContent;
+
+const BasicModal: FC<BasicModalProps> = ({
+  modalTitle,
+  modalText,
+  closeModal,
+}) => {
   return (
     <div>
       <Modal

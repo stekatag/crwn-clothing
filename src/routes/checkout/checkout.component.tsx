@@ -31,6 +31,7 @@ import {
   HeaderBlock,
   Total,
 } from "./checkout.style";
+import { StripeError } from "@stripe/stripe-js";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -44,8 +45,8 @@ const Checkout = () => {
     // Dispatch action to set the modal content
     dispatch(
       setModalContent({
-        title: "Payment Successful ✅",
-        text: "Your payment was successful!",
+        modalTitle: "Payment Successful ✅",
+        modalText: "Your payment was successful!",
       })
     );
     // Dispatch action to set the modal open state to true
@@ -55,12 +56,12 @@ const Checkout = () => {
     dispatch(resetCartState());
   };
 
-  const handlePaymentError = (error) => {
+  const handlePaymentError = (error: StripeError) => {
     // Dispatch action to set the modal content
     dispatch(
       setModalContent({
-        title: "Transaction declined ❌",
-        text: error.message,
+        modalTitle: "Transaction declined ❌",
+        modalText: error.message,
       })
     );
 
@@ -113,8 +114,8 @@ const Checkout = () => {
       )}
       {isModalOpen && (
         <BasicModal
-          modalTitle={modalContent.title}
-          modalText={modalContent.text}
+          modalTitle={modalContent.modalTitle}
+          modalText={modalContent.modalText}
           closeModal={closeModal}
         />
       )}
