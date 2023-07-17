@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 
 import { useNavigate } from "react-router";
 import ProductCard from "../product-card/product-card.component";
@@ -22,9 +22,9 @@ type CategoryPreviewProps = {
 const CategoryPreview: FC<CategoryPreviewProps> = ({ title, products }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
+  const handleNavigate = useCallback(() => {
     navigate(`/shop/${title.toLowerCase()}`);
-  };
+  }, [navigate, title]);
 
   return (
     <CategoryPreviewContainer>

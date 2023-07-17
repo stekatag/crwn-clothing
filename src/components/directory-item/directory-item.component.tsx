@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +18,10 @@ const DirectoryItem: FC<DirectoryItemProps> = ({ category }) => {
   const { title, imageUrl, route } = category;
   const navigate = useNavigate();
 
-  const onNavigateHandler = () => navigate(route);
+  const onNavigateHandler = useCallback(
+    () => navigate(route),
+    [navigate, route]
+  );
 
   return (
     <DirectoryItemContainer onClick={onNavigateHandler}>
