@@ -25,6 +25,9 @@ import CheckoutItem from "../../components/checkout-item/checkout-item.component
 import PaymentForm from "../../components/payment-form/payment-form.component";
 import BasicModal from "../../components/basic-modal/basic-modal.component";
 
+import { TransitionGroup } from "react-transition-group";
+import { Collapse } from "@mui/material";
+
 import {
   CheckoutContainer,
   CheckoutHeader,
@@ -100,9 +103,17 @@ const Checkout = () => {
               <span>Remove</span>
             </HeaderBlock>
           </CheckoutHeader>
-          {cartItems.map((cartItem) => (
-            <CheckoutItem key={cartItem.id} cartItem={cartItem} />
-          ))}
+          <TransitionGroup
+            style={{
+              width: "100%",
+            }}
+          >
+            {cartItems.map((cartItem) => (
+              <Collapse key={cartItem.id} in={true} timeout={300}>
+                <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+              </Collapse>
+            ))}
+          </TransitionGroup>
           <Total>Total: ${cartTotal}</Total>
           {cartItems.length > 0 && (
             <PaymentForm

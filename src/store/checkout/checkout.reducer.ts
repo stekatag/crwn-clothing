@@ -16,8 +16,8 @@ export type CheckoutState = {
 export const CHECKOUT_INITIAL_STATE: CheckoutState = {
   isModalOpen: false,
   modalContent: {
-    title: "",
-    text: "",
+    modalTitle: "",
+    modalText: "",
   },
 };
 

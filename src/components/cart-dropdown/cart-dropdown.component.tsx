@@ -3,6 +3,9 @@ import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
+import { TransitionGroup } from "react-transition-group";
+import { Collapse } from "@mui/material";
+
 import Button from "../button/button.component";
 import CartItem from "../cart-item/cart-item.component";
 import { selectCartItems } from "../../store/cart/cart.selector";
@@ -23,15 +26,19 @@ const CartDropdown = () => {
 
   return (
     <CartDropdownContainer>
-      <CartItems>
-        {cartItems.length ? (
-          cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} cartItem={cartItem} />
-          ))
-        ) : (
-          <EmptyMessage>Your cart is empty</EmptyMessage>
-        )}
-      </CartItems>
+      {cartItems.length ? (
+        <CartItems>
+          <TransitionGroup>
+            {cartItems.map((cartItem) => (
+              <Collapse key={cartItem.id} timeout={400}>
+                <CartItem key={cartItem.id} cartItem={cartItem} />
+              </Collapse>
+            ))}
+          </TransitionGroup>
+        </CartItems>
+      ) : (
+        <EmptyMessage>Your cart is empty</EmptyMessage>
+      )}
       <Button onClick={handleCheckout}>GO TO CHECKOUT</Button>
     </CartDropdownContainer>
   );

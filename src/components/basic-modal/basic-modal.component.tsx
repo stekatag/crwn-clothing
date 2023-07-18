@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Modal from "@mui/material/Modal";
+import { Fade } from "@mui/material";
 
 import { CheckoutModalContent } from "../../store/checkout/checkout.types";
 
@@ -24,11 +25,13 @@ const BasicModal: FC<BasicModalProps> = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <ModalBox>
-          <ModalTitle id="modal-modal-title">{modalTitle}</ModalTitle>
-          <ModalText>{modalText}</ModalText>
-          <Button onClick={closeModal}>Close</Button>
-        </ModalBox>
+        <Fade in={true} timeout={400}>
+          <ModalBox>
+            <ModalTitle id="modal-modal-title">{modalTitle}</ModalTitle>
+            <ModalText>{modalText}</ModalText>
+            <Button onClick={closeModal}>Close</Button>
+          </ModalBox>
+        </Fade>
       </Modal>
     </div>
   );
