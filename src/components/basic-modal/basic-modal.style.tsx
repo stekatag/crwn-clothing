@@ -53,6 +53,7 @@ export const ButtonsContainer = styled.div`
 
   @media only screen and ${respond.phone} {
     ${BaseButton} {
+      flex-direction: column;
       min-width: 0;
     }
   }

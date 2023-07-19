@@ -26,25 +26,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-  }, []);
 
-  const handleUpdate = () => {
-    const unregisterSW = registerSW({
-      onNeedRefresh() {
-        setShowModal(true); // Show the modal when a new version is available
-      },
-    });
-
-    setShowModal(false); // Close the modal before performing the update
-
-    // Perform the update
-    unregisterSW(true);
-
-    // After performing the update, trigger a page reload to get the new content
-    window.location.reload();
-  };
-
-  useEffect(() => {
     const unregisterSW = registerSW({
       onNeedRefresh() {
         setShowModal(true); // Show the modal when a new version is available
@@ -55,7 +37,17 @@ const App = () => {
       // Cleanup the SW registration to avoid multiple listeners
       unregisterSW();
     };
-  }, []);
+  }, [dispatch]);
+
+  const handleUpdate = async () => {
+    setShowModal(false); // Close the modal before performing the update
+
+    const updateSW = registerSW();
+    await updateSW(true); // Perform the update
+
+    // After performing the update, trigger a page reload to get the new content
+    window.location.reload();
+  };
 
   return (
     <Suspense fallback={<Spinner />}>
