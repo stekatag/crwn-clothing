@@ -23,6 +23,7 @@ const BasicModal: FC<BasicModalProps> = ({
   modalTitle,
   modalText,
   closeModal,
+  onConfirm,
   confirmButton = false,
 }) => {
   return (
@@ -41,7 +42,7 @@ const BasicModal: FC<BasicModalProps> = ({
               {confirmButton && (
                 <Button
                   buttonType={BUTTON_TYPE_CLASSES.confirm}
-                  onClick={closeModal}
+                  onClick={onConfirm}
                 >
                   Confirm
                 </Button>

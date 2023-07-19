@@ -52,8 +52,9 @@ export const ButtonsContainer = styled.div`
   gap: 1.6rem;
 
   @media only screen and ${respond.phone} {
+    flex-direction: column;
+
     ${BaseButton} {
-      flex-direction: column;
       min-width: 0;
     }
   }
