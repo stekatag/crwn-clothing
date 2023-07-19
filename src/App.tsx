@@ -24,21 +24,37 @@ const App = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, []);
+
   const handleUpdate = () => {
-    const updateSW = registerSW({
+    const unregisterSW = registerSW({
       onNeedRefresh() {
         setShowModal(true); // Show the modal when a new version is available
       },
     });
 
-    if (confirm("New version available. Load new version?")) {
-      updateSW(true); // Perform the update
-    }
-    setShowModal(false); // Close the modal regardless of confirmation
+    setShowModal(false); // Close the modal before performing the update
+
+    // Perform the update
+    unregisterSW(true);
+
+    // After performing the update, trigger a page reload to get the new content
+    window.location.reload();
   };
 
   useEffect(() => {
-    dispatch(checkUserSession());
+    const unregisterSW = registerSW({
+      onNeedRefresh() {
+        setShowModal(true); // Show the modal when a new version is available
+      },
+    });
+
+    return () => {
+      // Cleanup the SW registration to avoid multiple listeners
+      unregisterSW();
+    };
   }, []);
 
   return (
