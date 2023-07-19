@@ -39,6 +39,17 @@ export const GoogleSignInButton = styled(BaseButton)`
   }
 `;
 
+export const ConfirmButton = styled(BaseButton)`
+  background-color: #98fb98;
+  color: var(--color-black);
+
+  &:hover {
+    background-color: #6ac06a;
+    color: var(--color-black);
+    border: 1px solid transparent;
+  }
+`;
+
 export const InvertedButton = styled(BaseButton)`
   background-color: var(--color-white);
   color: var(--color-black);

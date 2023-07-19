@@ -40,13 +40,22 @@ const BasicModal: FC<BasicModalProps> = ({
             <ButtonsContainer>
               {confirmButton && (
                 <Button
-                  buttonType={BUTTON_TYPE_CLASSES.googleSignIn}
+                  buttonType={BUTTON_TYPE_CLASSES.confirm}
                   onClick={closeModal}
                 >
                   Confirm
                 </Button>
               )}
-              <Button onClick={closeModal}>Close</Button>
+              {confirmButton ? (
+                <Button
+                  buttonType={BUTTON_TYPE_CLASSES.inverted}
+                  onClick={closeModal}
+                >
+                  Cancel
+                </Button>
+              ) : (
+                <Button onClick={closeModal}>Close</Button>
+              )}
             </ButtonsContainer>
           </ModalBox>
         </Fade>
