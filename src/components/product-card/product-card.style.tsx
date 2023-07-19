@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { respond } from "../../utils/responsive/responsive.utils";
 import { InvertedButton } from "../button/button.style";
 
 export const ProductCartContainer = styled.div`
@@ -13,6 +14,11 @@ export const ProductCartContainer = styled.div`
     img {
       transition: all 0.2s ease-in-out;
       opacity: 0.8;
+
+      @media only screen and ${respond.tabPort} {
+        opacity: 1;
+        transition: unset;
+      }
     }
 
     ${InvertedButton} {
@@ -33,7 +39,6 @@ export const ProductCartContainer = styled.div`
 
   ${InvertedButton} {
     width: 80%;
-    opacity: 0.7;
     position: absolute;
     bottom: 3.2rem;
 
@@ -42,6 +47,13 @@ export const ProductCartContainer = styled.div`
     visibility: hidden;
     pointer-events: none;
     opacity: 0;
+
+    @media only screen and ${respond.tabPort} {
+      visibility: visible;
+      pointer-events: auto;
+      opacity: 0.8;
+      bottom: 3.8rem;
+    }
   }
 `;
 
