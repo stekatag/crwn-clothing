@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "./components/scroll-to-top/scroll-to-top.component";
 import Spinner from "./components/spinner/spinner.component";
-import BasicModal from "./components/basic-modal/basic-modal.component";
+import UpdateModal from "./components/update-modal/update-modal.component";
 
 import { checkUserSession } from "./store/user/user.action";
 import { registerSW } from "virtual:pwa-register";
@@ -26,17 +26,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-
-    const unregisterSW = registerSW({
-      onNeedRefresh() {
-        setShowModal(true); // Show the modal when a new version is available
-      },
-    });
-
-    return () => {
-      // Cleanup the SW registration to avoid multiple listeners
-      unregisterSW();
-    };
   }, [dispatch]);
 
   const handleUpdate = async () => {
@@ -48,6 +37,19 @@ const App = () => {
     // After performing the update, trigger a page reload to get the new content
     window.location.reload();
   };
+
+  useEffect(() => {
+    const unregisterSW = registerSW({
+      onNeedRefresh() {
+        setShowModal(true); // Show the modal when a new version is available
+      },
+    });
+
+    return () => {
+      // Cleanup the SW registration to avoid multiple listeners
+      unregisterSW();
+    };
+  }, []);
 
   return (
     <Suspense fallback={<Spinner />}>
@@ -61,15 +63,11 @@ const App = () => {
         </Route>
       </Routes>
 
-      {showModal && (
-        <BasicModal
-          modalTitle="New Version Available"
-          modalText="A new version of the app is available. Load new version?"
-          closeModal={() => setShowModal(false)} // Close the modal without update
-          confirmButton
-          onConfirm={handleUpdate} // Perform the update and close the modal
-        />
-      )}
+      <UpdateModal
+        showModal={showModal}
+        closeModal={() => setShowModal(false)}
+        handleUpdate={handleUpdate}
+      />
     </Suspense>
   );
 };
