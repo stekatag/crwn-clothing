@@ -23,7 +23,7 @@ export default defineConfig({
       manifest: {
         theme_color: "#212121",
         background_color: "#f7f7f7",
-        display: "browser",
+        display: "standalone",
         scope: "/",
         start_url: "/",
         name: "Crwn Clothing",
