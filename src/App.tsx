@@ -74,6 +74,7 @@ const App = () => {
           modalTitle="New Version Available"
           modalText="A new version of the app is available. Load new version?"
           closeModal={() => setShowModal(false)} // Close the modal without update
+          confirmButton
           onConfirm={handleUpdate} // Perform the update and close the modal
         />
       )}
