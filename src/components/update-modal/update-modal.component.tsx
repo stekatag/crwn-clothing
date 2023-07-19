@@ -1,35 +1,26 @@
-import { FC, useState, useEffect, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { registerSW } from "virtual:pwa-register";
 import BasicModal from "../basic-modal/basic-modal.component";
 
-type UpdateModalProps = {
-  handleUpdate: () => Promise<void>;
-};
-
-const UpdateModal: FC<UpdateModalProps> = ({ handleUpdate }) => {
+const UpdateModal = () => {
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const unregisterSW = registerSW({
+  const handleUpdate = async () => {
+    const updateSW = registerSW({
       onNeedRefresh() {
-        // Show the modal when a new version is available
+        // show a prompt to user
         setShowModal(true);
       },
     });
 
-    return () => {
-      // Cleanup the SW registration to avoid multiple listeners
-      unregisterSW();
-    };
-  }, []);
+    await updateSW(true); // Perform the update
+
+    // After performing the update, trigger a page reload to get the new content
+    window.location.reload();
+  };
 
   const closeModal = () => {
     setShowModal(false);
-  };
-
-  const handleUpdateAndClose = async () => {
-    await handleUpdate(); // Perform the update
-    setShowModal(false); // Close the modal after performing the update
   };
 
   return (
@@ -40,9 +31,16 @@ const UpdateModal: FC<UpdateModalProps> = ({ handleUpdate }) => {
           modalText="A new version of the app is available. Load new version?"
           closeModal={closeModal}
           confirmButton
-          onConfirm={handleUpdateAndClose}
+          onConfirm={handleUpdate}
         />
       )}
+      {/* <BasicModal
+        modalTitle="New Version Available"
+        modalText="A new version of the app is available. Load new version?"
+        closeModal={closeModal}
+        confirmButton
+        onConfirm={handleUpdate}
+      /> */}
     </Fragment>
   );
 };

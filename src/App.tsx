@@ -8,7 +8,6 @@ import Spinner from "./components/spinner/spinner.component";
 import UpdateModal from "./components/update-modal/update-modal.component";
 
 import { checkUserSession } from "./store/user/user.action";
-import { registerSW } from "virtual:pwa-register";
 
 const Navigation = lazy(
   () => import("./routes/navigation/navigation.component")
@@ -27,14 +26,6 @@ const App = () => {
     dispatch(checkUserSession());
   }, []);
 
-  const handleUpdate = async () => {
-    const updateSW = registerSW();
-    await updateSW(true); // Perform the update
-
-    // After performing the update, trigger a page reload to get the new content
-    window.location.reload();
-  };
-
   return (
     <Suspense fallback={<Spinner />}>
       <ScrollToTop />
@@ -47,7 +38,7 @@ const App = () => {
         </Route>
       </Routes>
 
-      <UpdateModal handleUpdate={handleUpdate} />
+      <UpdateModal />
     </Suspense>
   );
 };
