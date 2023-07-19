@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
@@ -22,34 +22,18 @@ const Authentication = lazy(
 
 const App = () => {
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(checkUserSession());
-  }, [dispatch]);
+  }, []);
 
   const handleUpdate = async () => {
-    setShowModal(false); // Close the modal before performing the update
-
     const updateSW = registerSW();
     await updateSW(true); // Perform the update
 
     // After performing the update, trigger a page reload to get the new content
     window.location.reload();
   };
-
-  useEffect(() => {
-    const unregisterSW = registerSW({
-      onNeedRefresh() {
-        setShowModal(true); // Show the modal when a new version is available
-      },
-    });
-
-    return () => {
-      // Cleanup the SW registration to avoid multiple listeners
-      unregisterSW();
-    };
-  }, []);
 
   return (
     <Suspense fallback={<Spinner />}>
@@ -63,11 +47,7 @@ const App = () => {
         </Route>
       </Routes>
 
-      <UpdateModal
-        showModal={showModal}
-        closeModal={() => setShowModal(false)}
-        handleUpdate={handleUpdate}
-      />
+      <UpdateModal handleUpdate={handleUpdate} />
     </Suspense>
   );
 };
