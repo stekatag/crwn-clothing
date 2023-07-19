@@ -46,3 +46,14 @@ export const ModalText = styled.p`
     font-size: 1.6rem;
   }
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 1.6rem;
+
+  @media only screen and ${respond.phone} {
+    ${BaseButton} {
+      min-width: 0;
+    }
+  }
+`;

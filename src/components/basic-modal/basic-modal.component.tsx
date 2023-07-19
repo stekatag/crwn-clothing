@@ -4,18 +4,26 @@ import { Fade } from "@mui/material";
 
 import { CheckoutModalContent } from "../../store/checkout/checkout.types";
 
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
-import { ModalBox, ModalText, ModalTitle } from "./basic-modal.style";
+import {
+  ModalBox,
+  ModalText,
+  ModalTitle,
+  ButtonsContainer,
+} from "./basic-modal.style";
 
 type BasicModalProps = {
   closeModal: () => void;
+  confirmButton?: boolean;
+  onConfirm?: () => void;
 } & CheckoutModalContent;
 
 const BasicModal: FC<BasicModalProps> = ({
   modalTitle,
   modalText,
   closeModal,
+  confirmButton = false,
 }) => {
   return (
     <div>
@@ -29,7 +37,17 @@ const BasicModal: FC<BasicModalProps> = ({
           <ModalBox>
             <ModalTitle id="modal-modal-title">{modalTitle}</ModalTitle>
             <ModalText>{modalText}</ModalText>
-            <Button onClick={closeModal}>Close</Button>
+            <ButtonsContainer>
+              {confirmButton && (
+                <Button
+                  buttonType={BUTTON_TYPE_CLASSES.googleSignIn}
+                  onClick={closeModal}
+                >
+                  Confirm
+                </Button>
+              )}
+              <Button onClick={closeModal}>Close</Button>
+            </ButtonsContainer>
           </ModalBox>
         </Fade>
       </Modal>
