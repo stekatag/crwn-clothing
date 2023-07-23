@@ -126,11 +126,9 @@ Make sure you have the latest version of NPM installed to avoid any errors:
 
 1. Browse through the available clothing items in the app.
 
-2. Click on an item to view more details.
+2. Add items to your shopping cart.
 
-3. Add items to your shopping cart.
-
-4. Proceed to checkout page to make a demo purchase using Stripe.
+3. Proceed to checkout page to make a demo purchase using Stripe.
 
 <!-- ROADMAP -->
 
