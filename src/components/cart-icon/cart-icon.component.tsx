@@ -7,12 +7,19 @@ import {
 import { setIsCartOpen } from "../../store/cart/cart.action";
 
 import { ShoppingIcon, CartIconContainer, ItemCount } from "./cart-icon.style";
+import { useEffect } from "react";
+import { useLocation } from "react-router";
 
 const CartIcon = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const cartCount = useSelector(selectCartCount);
   const isCartOpen = useSelector(selectIsCartOpen);
+
+  useEffect(() => {
+    // Dispatch an action to set isCartOpen to false whenever the route changes
+    dispatch(setIsCartOpen(false));
+  }, [dispatch, location]);
 
   const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));
 
