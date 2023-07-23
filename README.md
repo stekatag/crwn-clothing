@@ -56,7 +56,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://crwn-clothing-stekatag.netlify.app/)
 
-Crwn Clothing is an e-commerce application for buying clothes like hats, jackets, and sneakers for both men and women. The app is built using React, TypeScript, Redux, Redux Sagas, and Firebase for storing data.
+Crwn Clothing is an e-commerce app for shopping jackets, hats, sneakers, and many more for both men and women The app is built using React, TypeScript, Redux, Redux Sagas, and Firebase for storing data.
 
 The app allows users to:
 
@@ -164,9 +164,8 @@ Contributions are what make the open source community such an amazing place to b
 
 ## License
 
-Distributed under the MIT License. See [license]([license-url]) for more information.
+Distributed under the MIT License. See [license](https://github.com/stekatag/crwn-clothing/blob/master/LICENSE.txt) for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[license-url]: https://github.com/stekatag/forkify/LICENSE.txt
 [product-screenshot]: public/product-screenshot.jpg
