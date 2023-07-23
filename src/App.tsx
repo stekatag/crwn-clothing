@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "./components/scroll-to-top/scroll-to-top.component";
 import Spinner from "./components/spinner/spinner.component";
-import UpdateModal from "./components/update-modal/update-modal.component";
 
 import { checkUserSession } from "./store/user/user.action";
 
@@ -37,8 +36,6 @@ const App = () => {
           <Route path="checkout" element={<Checkout />} />
         </Route>
       </Routes>
-
-      <UpdateModal />
     </Suspense>
   );
 };
