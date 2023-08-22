@@ -6,6 +6,16 @@
     <img src="public/crwn-wide-logo.png" alt="Logo" width="85%" height="85%">
   </a>
 
+  <!-- STATUS BADGES -->
+
+  <p align="center">
+    <img src="https://api.netlify.com/api/v1/badges/d07ac9a1-bfaf-4fb0-9298-7240769353f1/deploy-status">
+    <a href="LICENSE" style="text-decoration: none;">
+      <img src="https://img.shields.io/badge/license-GPLv3-blue">
+    </a>
+    <img src="https://img.shields.io/github/issues/stekatag/crwn-clothing">
+  </p>
+
   <h3 align="center">Crwn Clothing</h3>
 
   <p align="center">
