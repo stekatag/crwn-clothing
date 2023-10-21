@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { useDetectAdblock } from "detect-adblock-react";
 
@@ -43,6 +44,7 @@ const Checkout = () => {
   const { adBlockDetected } = useDetectAdblock();
   const isModalOpen = useSelector(selectIsModalOpen);
   const modalContent = useSelector(selectModalContent);
+  const navigate = useNavigate();
 
   const handlePaymentSuccess = () => {
     // Dispatch action to set the modal content
@@ -78,6 +80,11 @@ const Checkout = () => {
 
     // Dispatch action to reset the checkout state
     dispatch(resetCheckoutState());
+
+    // Set the window location to the home page with a timeout of 1 sec
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 1000);
   };
 
   return (
