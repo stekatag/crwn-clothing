@@ -17,6 +17,11 @@ export type SetIsModalOpen = ActionWithPayload<
   boolean
 >;
 
+export type SetPaymentSuccess = ActionWithPayload<
+  CHECKOUT_ACTION_TYPES.SET_PAYMENT_SUCCESS,
+  boolean
+>;
+
 export type ResetCheckoutState =
   Action<CHECKOUT_ACTION_TYPES.RESET_CHECKOUT_STATE>;
 
@@ -28,6 +33,11 @@ export const setModalContent = withMatcher(
 export const setIsModalOpen = withMatcher(
   (isModalOpen: boolean): SetIsModalOpen =>
     createAction(CHECKOUT_ACTION_TYPES.SET_IS_MODAL_OPEN, isModalOpen)
+);
+
+export const setPaymentSuccess = withMatcher(
+  (paymentSuccess: boolean): SetPaymentSuccess =>
+    createAction(CHECKOUT_ACTION_TYPES.SET_PAYMENT_SUCCESS, paymentSuccess)
 );
 
 export const resetCheckoutState = withMatcher(

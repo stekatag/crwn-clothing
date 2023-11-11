@@ -13,12 +13,14 @@ import { resetCartState } from "../../store/cart/cart.action";
 import {
   setModalContent,
   setIsModalOpen,
+  setPaymentSuccess,
   resetCheckoutState,
 } from "../../store/checkout/checkout.action";
 
 import {
   selectModalContent,
   selectIsModalOpen,
+  selectPaymentSuccess,
 } from "../../store/checkout/checkout.selector";
 
 import AdblockWarning from "../../components/adblock-warning/adblock-warning.component";
@@ -44,6 +46,7 @@ const Checkout = () => {
   const { adBlockDetected } = useDetectAdblock();
   const isModalOpen = useSelector(selectIsModalOpen);
   const modalContent = useSelector(selectModalContent);
+  const isPaymentSuccess = useSelector(selectPaymentSuccess);
   const navigate = useNavigate();
 
   const handlePaymentSuccess = () => {
@@ -54,6 +57,9 @@ const Checkout = () => {
         modalText: "Your payment was successful!",
       })
     );
+    // Dispatch action to set the payment success state to true
+    dispatch(setPaymentSuccess(true));
+
     // Dispatch action to set the modal open state to true
     dispatch(setIsModalOpen(true));
 
@@ -82,9 +88,11 @@ const Checkout = () => {
     dispatch(resetCheckoutState());
 
     // Set the window location to the home page with a timeout of 1 sec
-    setTimeout(() => {
-      navigate("/", { replace: true });
-    }, 1000);
+    if (isPaymentSuccess) {
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 1000);
+    }
   };
 
   return (

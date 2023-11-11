@@ -5,12 +5,14 @@ import { CheckoutModalContent } from "./checkout.types";
 import {
   setModalContent,
   setIsModalOpen,
+  setPaymentSuccess,
   resetCheckoutState,
 } from "./checkout.action";
 
 export type CheckoutState = {
   readonly isModalOpen: boolean;
   readonly modalContent: CheckoutModalContent;
+  readonly paymentSuccess: boolean;
 };
 
 export const CHECKOUT_INITIAL_STATE: CheckoutState = {
@@ -19,6 +21,7 @@ export const CHECKOUT_INITIAL_STATE: CheckoutState = {
     modalTitle: "",
     modalText: "",
   },
+  paymentSuccess: false,
 };
 
 export const checkoutReducer = (
@@ -36,6 +39,13 @@ export const checkoutReducer = (
     return {
       ...state,
       isModalOpen: action.payload,
+    };
+  }
+
+  if (setPaymentSuccess.match(action)) {
+    return {
+      ...state,
+      paymentSuccess: action.payload,
     };
   }
 

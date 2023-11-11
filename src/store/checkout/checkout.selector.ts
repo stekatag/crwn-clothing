@@ -15,3 +15,8 @@ export const selectIsModalOpen = createSelector(
   [selectCheckout],
   (checkout) => checkout.isModalOpen
 );
+
+export const selectPaymentSuccess = createSelector(
+  [selectCheckout],
+  (checkout) => checkout.paymentSuccess
+);
