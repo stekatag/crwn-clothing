@@ -1,9 +1,11 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
-import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.style";
 import {
@@ -18,8 +20,16 @@ const defaultFormFields = {
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector(selectCurrentUser);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -34,7 +44,6 @@ const SignInForm = () => {
 
     try {
       dispatch(emailSignInStart(email, password));
-
       resetFormFields();
     } catch (err) {
       switch ((err as AuthError).code) {
