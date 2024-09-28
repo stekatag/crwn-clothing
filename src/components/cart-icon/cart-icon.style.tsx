@@ -1,6 +1,7 @@
+/// <reference types="vite-plugin-svgr/client" />
 import styled from "styled-components";
 
-import { ReactComponent as ShoppingSvg } from "../../assets/shopping-bag.svg";
+import ShoppingSvg from "../../assets/shopping-bag.svg?react";
 
 export const ShoppingIcon = styled(ShoppingSvg)`
   width: 2.4rem;
